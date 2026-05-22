@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlicoCare - Seu acompanhamento diário do diabetes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="cabecalho">
+        <div class="container cabecalho-conteudo">
+            <div class="logo">
+                <div class="logo-icone" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C12 2 5 10 5 15a7 7 0 0 0 14 0c0-5-7-13-7-13z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div class="logo-texto">
+                    <h1>GlicoCare</h1>
+                    <p class="subtitulo">Seu acompanhamento diário do diabetes</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="conteudo-principal container">
+        <section class="boas-vindas">
+            <h2>Bem-vindo(a) ao GlicoCare</h2>
+            <p>Acompanhe sua glicemia, alimentação e medicações em um só lugar, de forma simples e segura.</p>
+        </section>
+
+        <div class="grade-secoes">
+            <section class="cartao cartao-amplo" id="registrar-glicemia">
+                <div class="cartao-cabecalho">
+                    <div class="cartao-icone" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2v6m0 0l-3-3m3 3l3-3M5 12a7 7 0 1014 0 7 7 0 00-14 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Registrar Glicemia</h3>
+                        <p class="cartao-descricao">Anote sua medição para acompanhar a evolução ao longo do tempo.</p>
+                    </div>
+                </div>
+
+                <form id="form-glicemia" class="form-glicemia" novalidate>
+                    <div class="campos-grade">
+                        <div class="campo">
+                            <label for="glic-valor">Valor da glicemia (mg/dL)</label>
+                            <input type="number" id="glic-valor" name="valor" min="1" max="1000" step="1" placeholder="Ex.: 110" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="glic-data">Data e hora da medição</label>
+                            <input type="datetime-local" id="glic-data" name="dataHora" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="glic-momento">Momento da medição</label>
+                            <select id="glic-momento" name="momento" required>
+                                <option value="jejum">Em jejum</option>
+                                <option value="antes-refeicao">Antes da refeição</option>
+                                <option value="depois-refeicao">Depois da refeição</option>
+                                <option value="antes-dormir">Antes de dormir</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="mensagem-form" class="mensagem-form" role="alert" aria-live="polite"></div>
+
+                    <div class="form-acoes">
+                        <button type="submit" class="botao-principal">Salvar registro</button>
+                    </div>
+                </form>
+
+                <div class="historico">
+                    <div class="historico-cabecalho">
+                        <h4>Histórico de medições</h4>
+                        <span id="historico-contador" class="historico-contador" aria-live="polite"></span>
+                    </div>
+                    <ul id="lista-historico" class="lista-historico"></ul>
+                    <p id="historico-vazio" class="historico-vazio">Nenhum registro ainda. Salve sua primeira medição acima.</p>
+                </div>
+            </section>
+
+            <section class="cartao cartao-amplo" id="alimentacao">
+                <div class="cartao-cabecalho">
+                    <div class="cartao-icone" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 5v10m-5-5h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Alimentação</h3>
+                        <p class="cartao-descricao">Anote suas refeições para entender a relação entre o que você come e sua glicemia.</p>
+                    </div>
+                </div>
+
+                <form id="form-alimentacao" class="form-glicemia" novalidate>
+                    <div class="campos-grade">
+                        <div class="campo">
+                            <label for="alim-tipo">Tipo de refeição</label>
+                            <select id="alim-tipo" name="tipo" required>
+                                <option value="cafe-manha">Café da manhã</option>
+                                <option value="almoco">Almoço</option>
+                                <option value="lanche">Lanche</option>
+                                <option value="jantar">Jantar</option>
+                                <option value="ceia">Ceia</option>
+                            </select>
+                        </div>
+
+                        <div class="campo">
+                            <label for="alim-data">Data e hora</label>
+                            <input type="datetime-local" id="alim-data" name="dataHora" required>
+                        </div>
+                    </div>
+
+                    <div class="campo">
+                        <label for="alim-descricao">O que você consumiu?</label>
+                        <textarea id="alim-descricao" name="descricao" rows="3" placeholder="Ex.: 2 fatias de pão integral, 1 ovo mexido e um café sem açúcar" required></textarea>
+                    </div>
+
+                    <div id="mensagem-alimentacao" class="mensagem-form" role="alert" aria-live="polite"></div>
+
+                    <div class="form-acoes">
+                        <button type="submit" class="botao-principal">Salvar refeição</button>
+                    </div>
+                </form>
+
+                <div class="historico">
+                    <div class="historico-cabecalho">
+                        <h4>Refeições registradas</h4>
+                        <span id="alimentacao-contador" class="historico-contador" aria-live="polite"></span>
+                    </div>
+                    <ul id="lista-alimentacao" class="lista-historico"></ul>
+                    <p id="alimentacao-vazio" class="historico-vazio">Nenhuma refeição registrada ainda. Cadastre a primeira acima.</p>
+                </div>
+            </section>
+
+            <section class="cartao cartao-amplo" id="remedios-insulina">
+                <div class="cartao-cabecalho">
+                    <div class="cartao-icone" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 12a8 8 0 0116 0M9 9l6 6m-6 0l6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Remédios e Insulina</h3>
+                        <p class="cartao-descricao">Registre seus medicamentos e doses de insulina para manter o controle do tratamento.</p>
+                    </div>
+                </div>
+
+                <form id="form-medicamento" class="form-glicemia" novalidate>
+                    <div class="campos-grade">
+                        <div class="campo">
+                            <label for="med-tipo">Tipo</label>
+                            <select id="med-tipo" name="tipo" required>
+                                <option value="comprimido">Comprimido / Remédio oral</option>
+                                <option value="insulina">Insulina</option>
+                            </select>
+                        </div>
+
+                        <div class="campo">
+                            <label for="med-nome">Nome do medicamento</label>
+                            <input type="text" id="med-nome" name="nome" placeholder="Ex.: Metformina" maxlength="80" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="med-dose">Dose</label>
+                            <input type="text" id="med-dose" name="dose" placeholder="Ex.: 850mg ou 10 unidades" maxlength="40" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="med-data">Data e hora</label>
+                            <input type="datetime-local" id="med-data" name="dataHora" required>
+                        </div>
+                    </div>
+
+                    <div id="mensagem-medicamento" class="mensagem-form" role="alert" aria-live="polite"></div>
+
+                    <div class="form-acoes">
+                        <button type="submit" class="botao-principal">Salvar</button>
+                    </div>
+                </form>
+
+                <div class="historico">
+                    <div class="historico-cabecalho">
+                        <h4>Medicamentos registrados</h4>
+                        <span id="medicamento-contador" class="historico-contador" aria-live="polite"></span>
+                    </div>
+                    <ul id="lista-medicamento" class="lista-historico"></ul>
+                    <p id="medicamento-vazio" class="historico-vazio">Nenhum medicamento registrado ainda. Cadastre o primeiro acima.</p>
+                </div>
+            </section>
+
+            <section class="cartao cartao-amplo" id="dicas">
+                <div class="cartao-cabecalho">
+                    <div class="cartao-icone" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2a7 7 0 00-4 12.7V17a2 2 0 002 2h4a2 2 0 002-2v-2.3A7 7 0 0012 2zM10 22h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Dicas para Você</h3>
+                        <p class="cartao-descricao">Sugestões personalizadas com base na sua última medição de glicemia.</p>
+                    </div>
+                </div>
+
+                <div id="dicas-resumo" class="dicas-resumo"></div>
+
+                <div id="dicas-conteudo" class="dicas-conteudo"></div>
+
+                <div class="dicas-aviso" role="note">
+                    <div class="dicas-aviso-icone" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <p><strong>Importante:</strong> estas dicas são apenas educativas e <strong>não substituem a orientação de um médico ou nutricionista</strong>. Em caso de sintomas, mal-estar ou dúvidas, procure um profissional de saúde.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="rodape">
+        <div class="container">
+            <p>Este sistema é educativo e não substitui orientação médica profissional.</p>
+            <p class="rodape-credito">&copy; <span id="ano-atual"></span> GlicoCare</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
