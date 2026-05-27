@@ -5,6 +5,11 @@
     box-sizing: border-box;
 }
 
+/* O atributo HTML "hidden" deve sempre vencer regras de display (flex/grid/etc.).
+   Sem isto, elementos como .evolucao-vazio ou .permissao-notificacao continuam
+   visíveis mesmo com o atributo `hidden` aplicado via JS. */
+[hidden] { display: none !important; }
+
 :root {
     --azul-principal: #0d8abc;
     --azul-escuro: #075b7d;
